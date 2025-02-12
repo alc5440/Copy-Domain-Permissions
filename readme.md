@@ -1,0 +1,9 @@
+### Copy-Domain-Permissions
+Uses file permissions from one domain as a template to create permissions for another domain.
+#### Warning
+I am not a software developer and this is almost certainly badly written. I just needed to add permissions for over a million files and couldn't find a tool that did what I needed so I made one. If you find yourself in a similar situation you have my condolences and hopefully this script is of some use to you. It worked for me but I am not responsible for any damage to your files or domain. You should not consider this to be a well tested tool and should absolutely create a backup before using.
+#### Prerequisites
+This script is written with the assumption that you have a functioning trust established between the two domains and are using a domain joined computer. All of my testing was done on a machine in the target domain though I see no reason it wouldn't work from the template domain. I don't remember which Python packages I needed to install and which were built in so you may need to install some packages for it to work. It also uses a lot of RAM depending on the size of the file you're working with. I'm sure there's a way to cut down on the memory usage but I just closed everything else I had running which solved my OOM errors.
+
+#### Usage
+Run an icacls export for the directory tree you want to change permissions on then run "python permissions.py exportname.txt" from a command prompt. The script is designed to be interactive and will walk you through the rest of the process. Permissions are not modified directly and will output a text file for use with icacls restore.

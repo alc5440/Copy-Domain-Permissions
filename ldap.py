@@ -17,7 +17,7 @@ def get_groups(dc_fqns):
     attributes = ["cn", "distinguishedName", 'objectSid']  # Adjust attributes as needed
     for domain in dc_fqns:
         ldap_server = f"ldap://{dc_fqns[domain][0]}"
-        base_dn = f"dc={domain.lower()},dc={dc_fqns[domain][0].split('.')[-1]}"
+        base_dn = f"dc={dc_fqns[domain][0].split('.')[-2]},dc={dc_fqns[domain][0].split('.')[-1]}"
         server = Server(ldap_server,port= 389)
         conn = Connection(server, user=f'{domain.lower()}\\{dc_fqns[domain][1]}', password=dc_fqns[domain][2], authentication=NTLM, auto_bind=True)
         conn.search(search_base=base_dn, search_filter=group_filter, search_scope=SUBTREE, attributes=attributes)

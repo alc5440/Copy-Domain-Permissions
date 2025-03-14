@@ -57,6 +57,10 @@ if __name__ == "__main__":
     sids = parse.find_unique_sids(chunked_files, pool)
     first_pass_sids = w32.resolve_sids(sids)
     unique_domains = parse.identify_domains(first_pass_sids)
+    print('The following domains have been identified from the permission file:')
+    print(''.join(f'{i}   ' for i in unique_domains), end='')
+    manual_target_domain = input('\nPlease enter the NetBIOS name for the target domain if not listed above (otherwise leave blank) then hit Enter: ').upper()
+    if manual_target_domain: unique_domains.add(manual_target_domain)
 
     #Domain details
     dc_fqdns = get_dom_creds(unique_domains)
